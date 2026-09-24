@@ -39,10 +39,23 @@ public class Reserva {
         return TimeUnit.DAYS.convert(diferenca,TimeUnit.MILLISECONDS);
     }
 
-    public void atualizaDados(Date chegada, Date partida) {
+    public String atualizaDados(Date chegada, Date partida) {
 
+        Date agora = new Date();
+
+        if(chegada.before(agora) || partida.before(agora)) {
+
+            return " Atualize com datas futuras";
+        }
+
+        if(!partida.after(chegada)) {
+
+            return " A data de saida deve ser depois da data de entrada";
+
+        }
         this.entrada = chegada;
         this.saida = partida;
+        return null;
     }
 
     @Override
